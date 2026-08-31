@@ -1,0 +1,68 @@
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+/* ліво */
+.toolbar > :first-child {
+  margin-right: auto;
+}
+
+/* право */
+.toolbar > :last-child {
+  margin-left: auto;
+}
+
+/* центр (pagination) */
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 🔘 кнопка Create */
+.createButton {
+  height: 40px;
+  padding: 0 16px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #fff;
+  background-color: #0d6efd;
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.createButton:hover {
+  background-color: #0b5ed7;
+}
+
+/* 📋 список */
+.notes {
+  margin-bottom: 24px;
+}
+
+.empty {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 40px;
+}
