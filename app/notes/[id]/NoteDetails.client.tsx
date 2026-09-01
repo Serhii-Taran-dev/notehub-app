@@ -1,41 +1,54 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useQuery } from '@tanstack/react-query';
 
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from '@/lib/api';
 
-import css from "./NoteDetails.module.css";
+import css from './NoteDetails.module.css';
 
-export default function NoteDetailsClient() {
-  const params = useParams<{ id: string }>();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+interface NoteDetailsClientProps {
+  id: string;
+}
 
-  if (!id) {
-    throw new Error("Invalid note id");
-  }
-
-  const { data: note, isLoading } = useQuery({
-    queryKey: ["note", id],
+export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
+  const {
+    data: note,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
-    throwOnError: true,
-    refetchOnMount: false,
   });
 
   if (isLoading) {
-    return <p>Loading, please wait...</p>;
+    return (
+      <main className={css.main}>
+        <p role="status">Loading note details…</p>
+      </main>
+    );
+  }
+
+  if (isError) {
+    throw error;
   }
 
   if (!note) {
-    throw new Error("Note not found");
+    throw new Error('Note not found');
   }
+
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'UTC',
+  }).format(new Date(note.createdAt));
 
   return (
     <main className={css.main}>
       <div className={css.container}>
-        <div className={css.item}>
+        <article className={css.item}>
           <div className={css.header}>
-            <h2>{note.title}</h2>
+            <h1>{note.title}</h1>
           </div>
 
           <p className={css.tag}>{note.tag}</p>
@@ -43,9 +56,9 @@ export default function NoteDetailsClient() {
           <p className={css.content}>{note.content}</p>
 
           <p className={css.date}>
-            {new Date(note.createdAt).toLocaleString()}
+            Created: <time dateTime={note.createdAt}>{formattedDate} UTC</time>
           </p>
-        </div>
+        </article>
       </div>
     </main>
   );
