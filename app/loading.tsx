@@ -1,3 +1,7 @@
-export default function Loading() {
-  return <p>Loading, please wait...</p>;
+export default function RootLoading() {
+  return (
+    <main>
+      <p role="status">Loading, please wait…</p>
+    </main>
+  );
 }
