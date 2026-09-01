@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { Toaster } from 'react-hot-toast';
+
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import { Toaster } from 'react-hot-toast';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,9 +19,10 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: ReactNode;
+  modal: ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
@@ -27,6 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <Toaster position="top-right" />
           {children}
+          {modal}
           <Footer />
         </TanStackProvider>
       </body>
