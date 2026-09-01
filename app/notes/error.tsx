@@ -1,18 +1,27 @@
-"use client";
+'use client';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
+import { useEffect } from 'react';
+
+interface NotesErrorProps {
+  error: Error & { digest?: string };
   reset: () => void;
-}) {
-  return (
-    <div>
-      <h2>Failed to load notes</h2>
-      <p>{error.message}</p>
+}
 
-      <button onClick={() => reset()}>Try again</button>
-    </div>
+export default function NotesError({ error, reset }: NotesErrorProps) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
+  return (
+    <main>
+      <div role="alert">
+        <h2>Unable to load notes</h2>
+        <p>Something went wrong while loading your notes. Please try again.</p>
+
+        <button type="button" onClick={reset}>
+          Try again
+        </button>
+      </div>
+    </main>
   );
 }
