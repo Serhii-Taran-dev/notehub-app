@@ -20,6 +20,14 @@ export default function NotesClient() {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const openModal = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   const requestedPage = Number(searchParams.get('page'));
 
   const page =
@@ -27,7 +35,7 @@ export default function NotesClient() {
 
   const search = searchParams.get('search')?.trim() ?? '';
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ['notes', page, search],
     queryFn: () => fetchNotes(page, search),
     placeholderData: (prev) => prev,
@@ -63,10 +71,16 @@ export default function NotesClient() {
     }
   }, [data, page, updatePage]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <main className={css.wrapper}>
+        <p role="status">Loading notes...</p>
+      </main>
+    );
+  }
 
   if (isError) {
-    throw new Error('Failed to fetch notes');
+    throw error;
   }
 
   const notes = data?.notes ?? [];
@@ -87,11 +101,7 @@ export default function NotesClient() {
           </div>
         )}
 
-        <button
-          type="button"
-          className={css.createButton}
-          onClick={() => setIsOpen(true)}
-        >
+        <button type="button" className={css.createButton} onClick={openModal}>
           Create Note +
         </button>
       </div>
@@ -105,8 +115,8 @@ export default function NotesClient() {
       </div>
 
       {isOpen && (
-        <Modal onClose={() => setIsOpen(false)}>
-          <NoteForm onClose={() => setIsOpen(false)} />
+        <Modal onClose={closeModal} ariaLabel="Create note">
+          <NoteForm onClose={closeModal} />
         </Modal>
       )}
     </main>
