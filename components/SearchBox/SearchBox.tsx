@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import css from "./SearchBox.module.css";
+import { useEffect, useState, type ChangeEvent } from 'react';
+import css from './SearchBox.module.css';
 
 interface SearchBoxProps {
   onSearch: (value: string) => void;
@@ -10,7 +10,7 @@ interface SearchBoxProps {
 
 export default function SearchBox({
   onSearch,
-  initialValue = "",
+  initialValue = '',
 }: SearchBoxProps) {
   const [query, setQuery] = useState(initialValue);
 
@@ -18,21 +18,23 @@ export default function SearchBox({
     setQuery(initialValue);
   }, [initialValue]);
 
-  useEffect(() => {
-    if (query !== initialValue) {
-      onSearch(query);
-    }
-  }, [query, initialValue, onSearch]);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    setQuery(value);
+    onSearch(value);
+  };
 
   return (
     <input
       className={css.input}
-      type="text"
+      type="search"
+      name="search"
+      aria-label="Search notes"
       placeholder="Search notes..."
+      autoComplete="off"
       value={query}
-      onChange={(e) => {
-        setQuery(e.target.value);
-      }}
+      onChange={handleChange}
     />
   );
 }

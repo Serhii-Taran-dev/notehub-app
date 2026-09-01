@@ -45,13 +45,16 @@ export default function NotesClient() {
   );
 
   const debouncedSearch = useDebouncedCallback((value: string) => {
+    const normalizedSearch = value.trim();
     const params = new URLSearchParams();
 
-    if (value) params.set('search', value);
+    if (normalizedSearch) {
+      params.set('search', normalizedSearch);
+    }
 
     params.set('page', '1');
 
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   }, 500);
 
   useEffect(() => {
