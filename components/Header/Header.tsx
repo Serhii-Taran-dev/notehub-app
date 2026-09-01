@@ -1,14 +1,14 @@
-import Link from "next/link";
-import css from "./Header.module.css";
+import Link from 'next/link';
+import css from './Header.module.css';
 
 export default function Header() {
   return (
     <header className={css.header}>
-      <Link href="/" aria-label="Home">
+      <Link href="/" aria-label="NoteHub home">
         NoteHub
       </Link>
 
-      <nav aria-label="Main Navigation">
+      <nav aria-label="Main navigation">
         <ul className={css.navigation}>
           <li>
             <Link href="/">Home</Link>
