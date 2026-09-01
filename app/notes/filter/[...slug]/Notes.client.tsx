@@ -14,7 +14,11 @@ import NoteForm from '@/components/NoteForm/NoteForm';
 
 import css from './Notes.module.css';
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: string;
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -36,8 +40,8 @@ export default function NotesClient() {
   const search = searchParams.get('search')?.trim() ?? '';
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['notes', page, search],
-    queryFn: () => fetchNotes(page, search),
+    queryKey: ['notes', page, search, tag],
+    queryFn: () => fetchNotes(page, search, tag),
     placeholderData: (prev) => prev,
   });
 
