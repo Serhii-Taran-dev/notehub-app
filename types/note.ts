@@ -12,3 +12,8 @@ export interface CreateNoteDto {
   content: string;
   tag: string;
 }
+
+export interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
