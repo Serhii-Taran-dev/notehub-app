@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fetchNotes } from '@/lib/api';
 import NoteList from '@/components/NoteList/NoteList';
-import SearchBox from '@/components/SearchBox/SearchBox';
 import Pagination from '@/components/Pagination/Pagination';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import { fetchNotes } from '@/lib/api';
 
 import css from './Notes.module.css';
 
@@ -21,16 +20,6 @@ interface NotesClientProps {
 export default function NotesClient({ tag }: NotesClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = useCallback(() => {
-    setIsOpen(true);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setIsOpen(false);
-  }, []);
 
   const requestedPage = Number(searchParams.get('page'));
 
@@ -105,9 +94,9 @@ export default function NotesClient({ tag }: NotesClientProps) {
           </div>
         )}
 
-        <button type="button" className={css.createButton} onClick={openModal}>
-          Create Note +
-        </button>
+        <Link href="/notes/action/create" className={css.createButton}>
+          Create note +
+        </Link>
       </div>
 
       <div className={css.notes}>
@@ -117,12 +106,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
           <NoteList notes={notes} />
         )}
       </div>
-
-      {isOpen && (
-        <Modal onClose={closeModal} ariaLabel="Create note">
-          <NoteForm onClose={closeModal} />
-        </Modal>
-      )}
     </main>
   );
 }
