@@ -6,7 +6,7 @@ import {
 import type { Metadata } from 'next';
 import { cache } from 'react';
 
-import { fetchNoteById } from '@/lib/api';
+import { fetchNoteById } from '@/lib/api/serverApi';
 
 import NoteDetailsClient from './NoteDetails.client';
 
