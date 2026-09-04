@@ -3,7 +3,7 @@
 import { isAxiosError } from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import toast from 'react-hot-toast';
 
 import { updateMe } from '@/lib/api/clientApi';
@@ -31,7 +31,7 @@ function EditProfileForm({ user }: EditProfileFormProps) {
   const [username, setUsername] = useState(user.username);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const normalizedUsername = username.trim();

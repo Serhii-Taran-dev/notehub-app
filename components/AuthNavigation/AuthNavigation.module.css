@@ -1,7 +1,8 @@
 .userEmail {
   color: white;
-  margin-right: 0.5rem;
+  margin: 0 0.5rem 0 0;
   font-size: 0.9rem;
+  overflow-wrap: anywhere;
 }
 
 .logoutButton {
@@ -30,6 +31,9 @@
 .navigationItem {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 0;
 }
 
 .navigationLink {

@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 
 import { logout } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useNoteStore } from '@/lib/store/noteStore';
 
 import css from './AuthNavigation.module.css';
 
@@ -21,6 +22,8 @@ export default function AuthNavigation() {
     (state) => state.clearIsAuthenticated
   );
 
+  const clearDraft = useNoteStore((state) => state.clearDraft);
+
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
@@ -30,8 +33,9 @@ export default function AuthNavigation() {
       await logout();
 
       clearIsAuthenticated();
-      queryClient.removeQueries({ queryKey: ['auth'] });
-      router.push('/sign-in');
+      clearDraft();
+      queryClient.clear();
+      router.replace('/sign-in');
     } catch {
       toast.error('Failed to log out. Please try again.');
     } finally {

@@ -2,10 +2,12 @@
 
 import { isAxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 import { register } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import css from './SignUpPage.module.css';
 
@@ -19,12 +21,13 @@ interface ApiErrorResponse {
 
 export default function SignUpPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const setUser = useAuthStore((state) => state.setUser);
 
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -37,8 +40,9 @@ export default function SignUpPage() {
     try {
       const user = await register({ email, password });
 
+      queryClient.setQueryData(['auth', 'session'], user);
       setUser(user);
-      router.push('/profile');
+      router.replace('/profile');
     } catch (error) {
       if (isAxiosError<ApiErrorResponse>(error)) {
         setError(
@@ -93,7 +97,9 @@ export default function SignUpPage() {
           </button>
         </div>
 
-        <p className={css.error}>{error}</p>
+        <p className={css.error} role="alert" aria-live="polite">
+          {error}
+        </p>
       </form>
     </main>
   );
