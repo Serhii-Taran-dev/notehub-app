@@ -46,7 +46,7 @@ export default function SignInPage() {
 
       queryClient.setQueryData(['auth', 'session'], user);
       setUser(user);
-      router.replace('/profile');
+      router.replace('/notes/filter/all');
     } catch (error) {
       if (isAxiosError<ApiErrorResponse>(error)) {
         setError(

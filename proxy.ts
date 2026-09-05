@@ -38,7 +38,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isPublicRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL('/profile', request.url));
+    return NextResponse.redirect(new URL('/notes/filter/all', request.url));
   }
 
   return NextResponse.next();
