@@ -1,6 +1,7 @@
 'use client';
 
 import ReactPaginate from 'react-paginate';
+
 import css from './Pagination.module.css';
 
 interface PaginationProps {
@@ -26,15 +27,22 @@ export default function Pagination({
       forcePage={currentPage - 1}
       onPageChange={(event) => onPageChange(event.selected + 1)}
       disableInitialCallback
+      pageRangeDisplayed={3}
+      marginPagesDisplayed={1}
       containerClassName={css.pagination}
-      activeClassName={css.active}
       pageClassName={css.page}
+      activeClassName={css.active}
+      previousClassName={css.navigationPage}
+      nextClassName={css.navigationPage}
+      breakClassName={css.break}
+      disabledClassName={css.disabled}
       previousLabel="←"
       nextLabel="→"
       previousAriaLabel="Go to previous page"
       nextAriaLabel="Go to next page"
       ariaLabelBuilder={(pageNumber) => `Go to page ${pageNumber}`}
       breakLabel="…"
+      renderOnZeroPageCount={null}
     />
   );
 }

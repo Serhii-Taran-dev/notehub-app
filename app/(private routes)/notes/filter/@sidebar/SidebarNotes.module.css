@@ -1,25 +1,113 @@
+.navigation {
+  min-width: 0;
+}
+
+.heading {
+  padding: 0.5rem 0.75rem 1rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--color-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
 .menuList {
+  display: grid;
   margin: 0;
   padding: 0;
-  list-style-type: none;
+  gap: 0.25rem;
+  list-style: none;
 }
 
 .menuItem {
-  margin-bottom: 16px;
+  min-width: 0;
 }
 
 .menuLink {
-  display: block;
-  padding: 8px 16px;
-  color: white;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0.625rem 0.75rem;
+  gap: 0.75rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
   text-decoration: none;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .menuLink:hover {
-  color: #ddd;
-  background-color: #444;
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.filterDot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-border-strong);
+  transition:
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.activeLink {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.activeLink:hover {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.activeLink .filterDot {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .heading {
+    padding: 0.25rem 0.5rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .menuList {
+    display: flex;
+    padding: 0.25rem;
+    gap: 0.375rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+
+  .menuItem {
+    flex: 0 0 auto;
+  }
+
+  .menuLink {
+    min-height: 40px;
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
 }

@@ -1,11 +1,86 @@
+.searchBox {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 0.875rem;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
 .input {
-  height: 40px;
-  padding: 0 12px;
+  width: 100%;
+  height: 48px;
+  padding: 0 2.875rem 0 2.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  appearance: none;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
 
-  font-size: 14px;
+.input::placeholder {
+  color: var(--color-text-muted);
+}
 
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+.input:hover {
+  border-color: var(--color-border-strong);
+}
 
-  max-width: 260px;
+.input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.clearButton {
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.clearButton:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.clearButton svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
 }

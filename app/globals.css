@@ -35,6 +35,10 @@
   --color-info: #3478d4;
   --color-info-soft: #eaf2fd;
 
+  /* Supporting colors */
+  --color-teal: #0f8178;
+  --color-teal-soft: #e5f7f4;
+
   /* Shadows */
   --shadow-sm: 0 1px 2px rgb(24 24 31 / 5%);
   --shadow-md: 0 8px 24px rgb(24 24 31 / 8%), 0 2px 6px rgb(24 24 31 / 4%);
@@ -92,6 +96,10 @@
   --color-error-soft: #402020;
   --color-info: #76aef2;
   --color-info-soft: #1c304a;
+
+  /* Supporting colors */
+  --color-teal: #5dd6c7;
+  --color-teal-soft: #173b38;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 24%);

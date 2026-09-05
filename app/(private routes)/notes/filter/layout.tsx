@@ -13,7 +13,10 @@ export default function NotesFilterLayout({
 }: NotesFilterLayoutProps) {
   return (
     <section className={css.container}>
-      <aside className={css.sidebar}>{sidebar}</aside>
+      <aside className={css.sidebar} aria-label="Note filters">
+        {sidebar}
+      </aside>
+
       <div className={css.notesWrapper}>{children}</div>
     </section>
   );
