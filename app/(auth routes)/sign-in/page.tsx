@@ -1,15 +1,15 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type SubmitEvent } from 'react';
 
 import { login } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 
-import { useQueryClient } from '@tanstack/react-query';
-
-import css from './SignInPage.module.css';
+import css from '../AuthForm.module.css';
 
 interface ApiErrorResponse {
   error?: string;
@@ -29,6 +29,10 @@ export default function SignInPage() {
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
     const email = String(formData.get('email') ?? '').trim();
@@ -61,31 +65,48 @@ export default function SignInPage() {
 
   return (
     <main className={css.mainContent}>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <h1 className={css.formTitle}>Sign in</h1>
+      <form
+        className={css.form}
+        onSubmit={handleSubmit}
+        aria-busy={isSubmitting}
+      >
+        <div className={css.heading}>
+          <p className={css.eyebrow}>Welcome back</p>
+          <h1 className={css.formTitle}>Continue to NoteHub</h1>
 
-        <div className={css.formGroup}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            className={css.input}
-            autoComplete="email"
-            required
-          />
+          <p className={css.description}>
+            Sign in to access your notes and continue where you left off.
+          </p>
         </div>
 
-        <div className={css.formGroup}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className={css.input}
-            autoComplete="current-password"
-            required
-          />
+        <div className={css.fields}>
+          <div className={css.formGroup}>
+            <label htmlFor="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              className={css.input}
+              placeholder="you@example.com"
+              autoComplete="email"
+              disabled={isSubmitting}
+              required
+            />
+          </div>
+
+          <div className={css.formGroup}>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              className={css.input}
+              placeholder="Enter your password"
+              autoComplete="current-password"
+              disabled={isSubmitting}
+              required
+            />
+          </div>
         </div>
 
         <div className={css.actions}>
@@ -94,12 +115,19 @@ export default function SignInPage() {
             className={css.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Logging in...' : 'Log in'}
+            {isSubmitting ? 'Signing in...' : 'Sign in'}
           </button>
         </div>
 
         <p className={css.error} role="alert" aria-live="polite">
           {error}
+        </p>
+
+        <p className={css.switchText}>
+          New to NoteHub?{' '}
+          <Link className={css.switchLink} href="/sign-up" prefetch={false}>
+            Create an account
+          </Link>
         </p>
       </form>
     </main>

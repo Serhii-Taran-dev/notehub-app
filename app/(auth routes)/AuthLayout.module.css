@@ -1,0 +1,53 @@
+.layout {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-height: calc(100vh - 184px);
+  padding: 4.5rem 1rem;
+  overflow: hidden;
+}
+
+.glowPrimary,
+.glowSecondary {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+}
+
+.glowPrimary {
+  top: 5%;
+  left: 15%;
+  width: 320px;
+  height: 320px;
+  background-color: var(--color-accent);
+  opacity: 0.12;
+}
+
+.glowSecondary {
+  right: 10%;
+  bottom: 5%;
+  width: 260px;
+  height: 260px;
+  background-color: var(--color-info);
+  opacity: 0.1;
+}
+
+@media (max-width: 767px) {
+  .layout {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .glowPrimary {
+    top: 5%;
+    left: -30%;
+  }
+
+  .glowSecondary {
+    right: -30%;
+  }
+}
