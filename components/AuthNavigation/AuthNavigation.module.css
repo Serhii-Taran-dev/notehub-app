@@ -1,47 +1,87 @@
-.userEmail {
-  color: white;
-  margin: 0 0.5rem 0 0;
-  font-size: 0.9rem;
-  overflow-wrap: anywhere;
-}
-
-.logoutButton {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-.logoutButton:hover {
-  background-color: white;
-  color: #333;
-}
-
-.logoutButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 .navigationItem {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
   min-width: 0;
+  gap: 0.5rem;
 }
 
 .navigationLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  font-weight: 600;
   text-decoration: none;
-  color: white;
-  font-size: 1rem;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .navigationLink:hover {
-  color: #ddd;
+  background-color: var(--color-surface-hover);
+  color: var(--color-accent);
+}
+
+.userEmail {
+  max-width: 220px;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.logoutButton:not(:disabled):hover {
+  border-color: var(--color-error);
+  background-color: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.logoutButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .navigationItem {
+    flex-wrap: wrap;
+  }
+
+  .accountItem {
+    margin-left: auto;
+  }
+
+  .userEmail {
+    display: none;
+  }
+
+  .navigationLink,
+  .logoutButton {
+    padding-inline: 0.75rem;
+  }
 }
