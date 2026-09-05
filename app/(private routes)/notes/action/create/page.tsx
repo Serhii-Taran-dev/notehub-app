@@ -27,10 +27,24 @@ export const metadata: Metadata = {
 export default function CreateNote() {
   return (
     <main className={css.main}>
-      <div className={css.container}>
-        <h1 className={css.title}>Create note</h1>
+      <div className={css.glow} aria-hidden="true" />
+
+      <section className={css.container} aria-labelledby="create-note-title">
+        <div className={css.heading}>
+          <p className={css.eyebrow}>Notes workspace</p>
+
+          <h1 className={css.title} id="create-note-title">
+            Create a new note
+          </h1>
+
+          <p className={css.description}>
+            Capture an idea, add the details, and choose a category to keep it
+            organized.
+          </p>
+        </div>
+
         <NoteForm />
-      </div>
+      </section>
     </main>
   );
 }
