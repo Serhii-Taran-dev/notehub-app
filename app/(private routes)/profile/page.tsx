@@ -32,34 +32,78 @@ export default async function ProfilePage() {
 
   return (
     <main className={css.mainContent}>
-      <div className={css.profileCard}>
-        <div className={css.header}>
-          <h1 className={css.formTitle}>Profile Page</h1>
+      <div className={css.glow} aria-hidden="true" />
 
+      <section className={css.profileCard} aria-labelledby="profile-title">
+        <div className={css.heading}>
+          <div>
+            <p className={css.eyebrow}>Account overview</p>
+
+            <h1 className={css.title} id="profile-title">
+              Your profile
+            </h1>
+
+            <p className={css.description}>
+              Manage your personal information and continue to your notes.
+            </p>
+          </div>
+
+          <span className={css.status}>
+            <span aria-hidden="true" />
+            Active account
+          </span>
+        </div>
+
+        <div className={css.profileContent}>
+          <div className={css.avatarSection}>
+            <div className={css.avatarWrapper}>
+              <Image
+                src={user.avatar}
+                alt={`${user.username} profile avatar`}
+                width={128}
+                height={128}
+                className={css.avatar}
+                priority
+              />
+
+              <span className={css.avatarBadge} aria-hidden="true">
+                ✓
+              </span>
+            </div>
+
+            <div className={css.identity}>
+              <p className={css.username}>{user.username}</p>
+              <p className={css.memberLabel}>NoteHub member</p>
+            </div>
+          </div>
+
+          <dl className={css.profileInfo}>
+            <div className={css.infoRow}>
+              <dt>Username</dt>
+              <dd>{user.username}</dd>
+            </div>
+
+            <div className={css.infoRow}>
+              <dt>Email address</dt>
+              <dd>{user.email}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className={css.actions}>
           <Link
             href="/profile/edit"
-            className={css.editProfileButton}
+            className={css.primaryAction}
             prefetch={false}
           >
-            Edit Profile
+            Edit profile
+          </Link>
+
+          <Link href="/notes/filter/all" className={css.secondaryAction}>
+            Open notes
           </Link>
         </div>
-
-        <div className={css.avatarWrapper}>
-          <Image
-            src={user.avatar}
-            alt="User Avatar"
-            width={120}
-            height={120}
-            className={css.avatar}
-          />
-        </div>
-
-        <div className={css.profileInfo}>
-          <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
-        </div>
-      </div>
+      </section>
     </main>
   );
 }

@@ -34,6 +34,10 @@ function EditProfileForm({ user }: EditProfileFormProps) {
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
     const normalizedUsername = username.trim();
 
     if (!normalizedUsername) {
@@ -49,7 +53,8 @@ function EditProfileForm({ user }: EditProfileFormProps) {
       });
 
       setUser(updatedUser);
-      router.push('/profile');
+      toast.success('Profile updated successfully.');
+      router.replace('/profile');
     } catch (error) {
       if (isAxiosError<ApiErrorResponse>(error)) {
         toast.error(
@@ -72,33 +77,74 @@ function EditProfileForm({ user }: EditProfileFormProps) {
 
   return (
     <main className={css.mainContent}>
-      <div className={css.profileCard}>
-        <h1 className={css.formTitle}>Edit Profile</h1>
+      <div className={css.glow} aria-hidden="true" />
 
-        <Image
-          src={user.avatar}
-          alt="User Avatar"
-          width={120}
-          height={120}
-          className={css.avatar}
-        />
+      <section className={css.profileCard} aria-labelledby="edit-profile-title">
+        <div className={css.heading}>
+          <p className={css.eyebrow}>Account settings</p>
 
-        <form className={css.profileInfo} onSubmit={handleSubmit}>
-          <div className={css.usernameWrapper}>
-            <label htmlFor="username">Username:</label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              className={css.input}
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              autoComplete="username"
-              required
-            />
+          <h1 className={css.title} id="edit-profile-title">
+            Edit your profile
+          </h1>
+
+          <p className={css.description}>
+            Update how your name appears across your NoteHub workspace.
+          </p>
+        </div>
+
+        <form
+          className={css.form}
+          onSubmit={handleSubmit}
+          aria-busy={isSubmitting}
+        >
+          <div className={css.avatarSection}>
+            <div className={css.avatarWrapper}>
+              <Image
+                src={user.avatar}
+                alt={`${user.username} profile avatar`}
+                width={128}
+                height={128}
+                className={css.avatar}
+                priority
+              />
+
+              <span className={css.avatarBadge} aria-hidden="true">
+                ✓
+              </span>
+            </div>
+
+            <p className={css.avatarNote}>
+              Your avatar is connected to your account.
+            </p>
           </div>
 
-          <p>Email: {user.email}</p>
+          <div className={css.fields}>
+            <div className={css.formGroup}>
+              <label htmlFor="username">Username</label>
+
+              <input
+                id="username"
+                type="text"
+                name="username"
+                className={css.input}
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                autoComplete="username"
+                disabled={isSubmitting}
+                required
+              />
+
+              <p className={css.fieldHint}>
+                This name will be displayed on your profile.
+              </p>
+            </div>
+
+            <div className={css.readOnlyField}>
+              <span className={css.readOnlyLabel}>Email address</span>
+              <span className={css.readOnlyValue}>{user.email}</span>
+              <span className={css.readOnlyBadge}>Verified</span>
+            </div>
+          </div>
 
           <div className={css.actions}>
             <button
@@ -106,7 +152,7 @@ function EditProfileForm({ user }: EditProfileFormProps) {
               className={css.saveButton}
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Saving...' : 'Save'}
+              {isSubmitting ? 'Saving changes...' : 'Save changes'}
             </button>
 
             <button
@@ -119,7 +165,7 @@ function EditProfileForm({ user }: EditProfileFormProps) {
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </main>
   );
 }
@@ -130,8 +176,25 @@ export default function EditProfilePage() {
   if (!user) {
     return (
       <main className={css.mainContent}>
-        <div className={css.profileCard}>
-          <p>Loading profile...</p>
+        <div className={css.glow} aria-hidden="true" />
+
+        <div className={css.loadingCard} role="status" aria-live="polite">
+          <div className={css.loadingHeader}>
+            <span />
+            <span />
+            <span />
+          </div>
+
+          <div className={css.loadingContent}>
+            <span className={css.loadingAvatar} />
+
+            <div className={css.loadingFields}>
+              <span />
+              <span />
+            </div>
+          </div>
+
+          <span className={css.visuallyHidden}>Loading profile...</span>
         </div>
       </main>
     );
