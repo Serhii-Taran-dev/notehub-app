@@ -27,6 +27,10 @@ export default function AuthNavigation() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) {
+      return;
+    }
+
     setIsLoggingOut(true);
 
     try {

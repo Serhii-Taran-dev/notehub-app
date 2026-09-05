@@ -37,17 +37,17 @@
 }
 
 .sunIcon {
-  display: block;
+  display: none;
 }
 
 .moonIcon {
-  display: none;
+  display: block;
 }
 
 :global(html[data-theme='dark']) .sunIcon {
-  display: none;
+  display: block;
 }
 
 :global(html[data-theme='dark']) .moonIcon {
-  display: block;
+  display: none;
 }

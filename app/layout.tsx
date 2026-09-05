@@ -32,10 +32,10 @@ const themeScript = `
         theme = savedTheme;
       }
     } catch {
-  try {
-    localStorage.removeItem(storageKey);
-  } catch {}
-}
+      try {
+        localStorage.removeItem(storageKey);
+      } catch {}
+    }
 
     if (!theme) {
       theme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -87,7 +87,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <script
           id="theme-initializer"
