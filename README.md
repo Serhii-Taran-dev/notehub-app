@@ -14,6 +14,30 @@ This project was originally created as an educational assignment during the GoIT
 
 I independently rebuilt and expanded the original application into a portfolio-ready product by improving its architecture, implementing cookie-based authentication and protected routes, redesigning the complete user interface, adding light and dark themes, and refining responsiveness, accessibility, and user experience.
 
+## Screenshots
+
+### Home
+
+![NoteHub home page in light theme](docs/screenshots/home-light-desktop.png)
+
+### Notes Workspace
+
+![NoteHub notes workspace in dark theme](docs/screenshots/notes-dark-desktop.png)
+
+### Note Preview
+
+![NoteHub note preview modal](docs/screenshots/note-preview-light-desktop.png)
+
+### Tablet
+
+![NoteHub profile page on tablet](docs/screenshots/profile-dark-tablet.png)
+
+### Mobile
+
+| Sign In                                                                      | Create Note                                                                         |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| ![NoteHub sign-in page on mobile](docs/screenshots/sign-in-light-mobile.png) | ![NoteHub create note page on mobile](docs/screenshots/create-note-dark-mobile.png) |
+
 ## Features
 
 ### Authentication
