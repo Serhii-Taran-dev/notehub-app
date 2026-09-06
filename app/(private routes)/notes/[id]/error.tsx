@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
+import { useEffect } from 'react';
+
+import SystemState from '@/components/SystemState/SystemState';
 
 interface NoteDetailsErrorProps {
   error: Error & { digest?: string };
@@ -17,21 +19,17 @@ export default function NoteDetailsError({
   }, [error]);
 
   return (
-    <main>
-      <div role="alert">
-        <h2>Unable to load note</h2>
+    <SystemState
+      variant="error"
+      eyebrow="Note details"
+      title="Unable to load note"
+      description="The note may no longer exist, or a connection error may have occurred."
+    >
+      <button type="button" onClick={reset}>
+        Try again
+      </button>
 
-        <p>
-          The note could not be loaded. It may no longer exist, or a connection
-          error may have occurred.
-        </p>
-
-        <button type="button" onClick={reset}>
-          Try again
-        </button>
-
-        <Link href="/notes">Back to notes</Link>
-      </div>
-    </main>
+      <Link href="/notes/filter/all">Back to notes</Link>
+    </SystemState>
   );
 }

@@ -1,6 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect } from 'react';
+
+import SystemState from '@/components/SystemState/SystemState';
 
 interface RootErrorProps {
   error: Error & { digest?: string };
@@ -13,15 +16,17 @@ export default function RootError({ error, reset }: RootErrorProps) {
   }, [error]);
 
   return (
-    <main>
-      <div role="alert">
-        <h2>Something went wrong</h2>
-        <p>An unexpected error occurred. Please try again.</p>
+    <SystemState
+      variant="error"
+      eyebrow="Unexpected error"
+      title="Something went wrong"
+      description="We couldn’t complete your request. Please try again or return to the Home page."
+    >
+      <button type="button" onClick={reset}>
+        Try again
+      </button>
 
-        <button type="button" onClick={reset}>
-          Try again
-        </button>
-      </div>
-    </main>
+      <Link href="/">Go home</Link>
+    </SystemState>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
-import css from './not-found.module.css';
+import SystemState from '@/components/SystemState/SystemState';
 
 export const metadata: Metadata = {
   title: {
@@ -26,14 +27,14 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className={css.main}>
-      <div className={css.container}>
-        <h1 className={css.title}>404 - Page not found</h1>
-
-        <p className={css.description}>
-          Sorry, the page you are looking for does not exist.
-        </p>
-      </div>
-    </main>
+    <SystemState
+      variant="not-found"
+      eyebrow="Error 404"
+      title="Page not found"
+      description="The page you’re looking for doesn’t exist or may have been moved."
+    >
+      <Link href="/">Go home</Link>
+      <Link href="/notes/filter/all">Open notes</Link>
+    </SystemState>
   );
 }
