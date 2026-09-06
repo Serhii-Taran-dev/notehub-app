@@ -8,6 +8,12 @@ NoteHub combines cookie-based authentication, protected routes, server-side data
 
 [Open NoteHub](https://notehub-app-plum.vercel.app/)
 
+## Project Background
+
+This project was originally created as an educational assignment during the GoIT Fullstack Developer course.
+
+I independently rebuilt and expanded the original application into a portfolio-ready product by improving its architecture, implementing cookie-based authentication and protected routes, redesigning the complete user interface, adding light and dark themes, and refining responsiveness, accessibility, and user experience.
+
 ## Features
 
 ### Authentication
