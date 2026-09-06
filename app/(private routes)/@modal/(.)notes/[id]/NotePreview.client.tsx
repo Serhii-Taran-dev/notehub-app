@@ -1,10 +1,11 @@
 'use client';
 
-import { useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 import Modal from '@/components/Modal/Modal';
+import NoteView from '@/components/NoteView/NoteView';
 import { fetchNoteById } from '@/lib/api/clientApi';
 
 import css from './NotePreview.module.css';
@@ -33,7 +34,16 @@ export default function NotePreviewClient({ id }: NotePreviewClientProps) {
   if (isLoading) {
     return (
       <Modal onClose={handleClose} ariaLabel="Note preview">
-        <p role="status">Loading note details…</p>
+        <div className={css.loading} role="status" aria-live="polite">
+          <span className={css.loadingEyebrow} />
+          <span className={css.loadingTitle} />
+          <span className={css.loadingTag} />
+          <span className={css.loadingLine} />
+          <span className={css.loadingLine} />
+          <span className={css.loadingShortLine} />
+
+          <span className={css.visuallyHidden}>Loading note details…</span>
+        </div>
       </Modal>
     );
   }
@@ -46,33 +56,22 @@ export default function NotePreviewClient({ id }: NotePreviewClientProps) {
     throw new Error('Note not found');
   }
 
-  const formattedDate = new Intl.DateTimeFormat('en-GB', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'UTC',
-  }).format(new Date(note.createdAt));
-
   return (
     <Modal onClose={handleClose} ariaLabel={`Preview of ${note.title}`}>
-      <div className={css.container}>
-        <article className={css.item}>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
-          </div>
-
-          <p className={css.tag}>{note.tag}</p>
-
-          <p className={css.content}>{note.content}</p>
-
-          <p className={css.date}>
-            Created: <time dateTime={note.createdAt}>{formattedDate} UTC</time>
-          </p>
-
-          <button type="button" className={css.backBtn} onClick={handleClose}>
-            Go back
+      <NoteView
+        note={note}
+        headingLevel="h2"
+        variant="modal"
+        actions={
+          <button
+            type="button"
+            className={css.closeAction}
+            onClick={handleClose}
+          >
+            Back to notes
           </button>
-        </article>
-      </div>
+        }
+      />
     </Modal>
   );
 }

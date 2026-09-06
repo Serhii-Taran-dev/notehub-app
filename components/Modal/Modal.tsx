@@ -87,7 +87,18 @@ export default function Modal({ children, onClose, ariaLabel }: ModalProps) {
         tabIndex={-1}
         onClick={handleModalClick}
       >
-        {children}
+        <button
+          type="button"
+          className={css.closeButton}
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <path d="m7 7 10 10M17 7 7 17" />
+          </svg>
+        </button>
+
+        <div className={css.content}>{children}</div>
       </div>
     </div>,
     document.body
